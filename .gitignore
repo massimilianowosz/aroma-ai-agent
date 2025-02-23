@@ -61,3 +61,6 @@ converted_images/
 
 # Env file
 .env
+
+# Mac
+.DS_Store
