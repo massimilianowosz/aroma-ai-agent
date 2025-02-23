@@ -1,0 +1,30 @@
+{
+    "1": {
+        "user_question": "Quali sono i piatti che combinano Carne di Balena spaziale, Teste di Idra, Spaghi del Sole e Carne di Xenodonte nella loro preparazione?",
+        "cypher_query": "MATCH (p:Piatto)\nWHERE (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'carne di balena spaziale'})\nAND (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'teste di idra'})\nAND (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'spaghi del sole'})\nAND (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'carne di xenodonte'})\nRETURN p"
+    },
+    "2": {
+        "user_question": "Quali piatti sono preparati nel ristorante di Asgard utilizzando Essenza di Speziaria?",
+        "cypher_query": "MATCH (p:Piatto)-[:SERVITO_IN]->(r:Ristorante)\nMATCH (r)-[:SITUATO_IN]->(pi:Pianeta {nome:'asgard'})\nMATCH (p)-[:HA_INGREDIENTE]->(i:Ingrediente { nome: 'essenza di speziaria' })\nRETURN p"
+    },
+    "3": {
+        "user_question": "Quali piatti preparati con la tecnica Grigliatura a Energia Stellare DiV?",
+        "cypher_query": "MATCH (p:Piatto)\nWHERE (p)-[:USA_TECNICA]->(:Tecnica {nome: 'grigliatura a energia stellare div'})\nRETURN p"
+    },
+    "4": {
+        "user_question": "Quali piatti, preparati senza usare Funghi Orbitali, sfruttano sia l'Affumicatura tramite Big Bang Microcosmico sia l'Affettamento a Pulsazioni Quantistiche?",
+        "cypher_query": "MATCH (p:Piatto)\nMATCH (p)-[:USA_TECNICA]->(t1:Tecnica {nome:'affumicatura tramite big bang microcosmico'})\nMATCH (p)-[:USA_TECNICA]->(t2:Tecnica {nome:'affettamento a pulsazioni quantistiche'})\nWHERE \nNOT (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'funghi orbitali'})\nRETURN p"
+    },
+    "5": {
+        "user_question": "Quali piatti possono essere trovati, preparati da uno chef con almeno la licenza P di grado 5, che includono Teste di Idra o che sono realizzati utilizzando la tecnica della Bollitura Entropica Sincronizzata?",
+        "cypher_query": "MATCH (p:Piatto)-[:CREATO_DA]->(c:Chef)\nMATCH (c)-[:HA_CERTIFICAZIONE]->(l:Licenza {nome:'psionica',acronimo:'p'})\nWHERE \nl.grado > 5 \nAND\n(\n    (p)-[:HA_INGREDIENTE]->(:Ingrediente {nome: 'teste di idra'})\nOR\n    (p)-[:USA_TECNICA]->(:Tecnica {nome: 'bollitura entropica sincronizzata'})\n)\nRETURN p"
+    },
+    "6": {
+        "user_question": "Quali piatti contengono almeno 2 ingredienti tra Spore Quantiche, Latte+ e Radici di Singolarità?",
+        "cypher_query": "MATCH (p:Piatto)-[:HA_INGREDIENTE]->(i:Ingrediente)\nWHERE i.nome IN ['spore quantiche', 'latte+', 'radici di singolarità']\nWITH p, COLLECT(i.nome) AS ingredienti\nWHERE SIZE(ingredienti) >= 2\nRETURN p"
+    },
+    "7": {
+        "user_question": "Quali piatti preparati al ristorante L'Essenza dell'Infinito utilizzano Fibra di Sintetex o Essenza di Vuoto?",
+        "cypher_query": "MATCH (p:Piatto)-[:SERVITO_IN]->(r:Ristorante {nome:'l\\'essenza dell\\'infinito'})\nMATCH (p)-[:HA_INGREDIENTE]->(i:Ingrediente)\nWHERE i.nome = 'fibra di sintetex' OR i.nome = 'essenza di vuoto'\nRETURN p"
+    } 
+}

@@ -1,0 +1,63 @@
+# Bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.eggs/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python egg files
+*.egg
+
+# Test and coverage
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.cache/
+
+# Pyre type checker
+.pyre/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Project docs
+docs/
+
+# Converted images
+converted_images/
+
+# Env file
+.env

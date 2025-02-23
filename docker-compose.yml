@@ -1,0 +1,36 @@
+services:
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant_hackapizza
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_hackapizza:/qdrant/storage
+    restart: unless-stopped
+
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j_db
+    restart: always
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=512m
+      - NEO4J_dbms_memory_heap_max__size=1024m
+      - NEO4J_dbms_memory_pagecache_size=512m
+      - NEO4J_dbms_security_auth__enabled=true
+      - NEO4JLABS_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - ./.docker/neo4j_conf:/var/lib/neo4j/conf
+      - ./.docker/neo4j_plugins:/plugins
+
+volumes:
+  qdrant_hackapizza:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_conf:
